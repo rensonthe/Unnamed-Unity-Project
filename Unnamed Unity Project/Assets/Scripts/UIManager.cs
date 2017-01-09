@@ -28,17 +28,22 @@ public class UIManager : MonoBehaviour {
 
     public void EnterName()
     {
+        if(enterName.text == string.Empty)
+        {
+            flowchart.ExecuteBlock("Error");
+        }
         if(enterName.text != string.Empty)
         {
             mainInputField.text = enterName.text;
             PlayerPrefs.SetString("Player Name", enterName.text);
             playerName = PlayerPrefs.GetString("Player Name");
             SetName();
+            PlayerController.Instance.SetActive();
+            EnterNameGUI.SetActive(false);
+            flowchart.SetStringVariable("MyName", playerName);
+            flowchart.ExecuteBlock("Name");
         }
-        PlayerController.Instance.SetActive();
-        EnterNameGUI.SetActive(false);
-        flowchart.SetStringVariable("MyName", playerName);
-        flowchart.ExecuteBlock("Name");
+
     }
 
     public void SetName()

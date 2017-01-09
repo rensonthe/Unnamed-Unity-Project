@@ -243,6 +243,12 @@ public class PlayerController : Character {
         moveSpeed = 3;      
     }
 
+    public void SetInactive()
+    {
+        moveSpeed = 0;
+        trig = true;
+    }
+
     private IEnumerator IndicateImmortal()
     {
         while (immortal)
