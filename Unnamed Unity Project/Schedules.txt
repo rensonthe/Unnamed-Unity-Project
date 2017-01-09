@@ -12,11 +12,6 @@ Platform
 Beast_02
 Save Sigil
 
-1/5 & 1/6 - Finalize Checkpoint respawn system
-(After the player dies:
-He should respawn at the latest checkpoint after x amount of seconds.
-When he leaves behind his soul, if an enemy touches it, it will become the "consumed" version
-Destroy the current enemy gameobject and relplace it with the new "consumed prefab")
-1/9 - Platforms
-1/10 - Beast_02 and Beast_01 with seperated melee and ranged stances
-
+-Multiple damage instances
+-Cooldowns actually cooldowns
+-Platform slope edge detection

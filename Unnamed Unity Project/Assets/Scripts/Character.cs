@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public abstract class Character : MonoBehaviour {
 
-    public int[] damageAmount;
-
     public GameObject Orb;
 
     public float moveSpeed = 3;

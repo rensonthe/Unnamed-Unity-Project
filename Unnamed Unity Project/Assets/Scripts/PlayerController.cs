@@ -237,7 +237,7 @@ public class PlayerController : Character {
         }
     }
 
-    void SetActive()
+    public void SetActive()
     {
         trig = false;
         moveSpeed = 3;      

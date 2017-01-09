@@ -5,6 +5,8 @@ using System;
 
 public class Enemy : Character {
 
+    public int damage;
+
     public Collider2D[] other;
 
     public GameObject redSoul;
