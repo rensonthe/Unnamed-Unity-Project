@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class Enemy : Character {
+
+    public Collider2D[] other;
+
+    public GameObject redSoul;
+
+    public ParticleSystem deathEffect;
 
     private IEnemyState currentState;
 
@@ -38,6 +45,11 @@ public class Enemy : Character {
         }
     }
 
+    private Vector3 startPos;
+
+    public Transform leftEdge;
+    public Transform rightEdge;
+
     public override bool IsDead
     {
         get
@@ -51,8 +63,9 @@ public class Enemy : Character {
 
         base.Start();
         PlayerController.Instance.Dead += new DeadEventHandler(RemoveTarget);
-        ChangeState(new IdleState());        	
-	}
+        ChangeState(new IdleState());
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), other[0], true);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -66,6 +79,16 @@ public class Enemy : Character {
             LookAtTarget();
         }
 	}
+
+    IEnumerator SpawnChance()
+    {
+        yield return new WaitForSeconds(1f);
+        if (UnityEngine.Random.value > 0.5f)
+        {
+            Instantiate(redSoul, transform.position, Quaternion.identity);
+        }
+        StopCoroutine("SpawnChance");
+    }
 
     public void RemoveTarget()
     {
@@ -102,9 +125,16 @@ public class Enemy : Character {
     {
         if (!Attack)
         {
-            MyAnimator.SetFloat("speed", 1);
+            if((GetDirection().x > 0 && transform.position.x < rightEdge.position.x) || (GetDirection().x < 0 && transform.position.x > leftEdge.position.x))
+            {
+                MyAnimator.SetFloat("speed", 1);
 
-            transform.Translate(GetDirection() * (moveSpeed * Time.deltaTime), Space.World);
+                transform.Translate(GetDirection() * (moveSpeed * Time.deltaTime), Space.World);
+            }
+            else if(currentState is PatrolState)
+            {
+                ChangeDirection();
+            }
         }
     }
 
@@ -130,13 +160,15 @@ public class Enemy : Character {
         else
         {
             MyAnimator.SetTrigger("death");
+            StartCoroutine("SpawnChance");
+            yield return new WaitForSeconds(1f);
+            Destroy(Instantiate(deathEffect.gameObject, transform.position, Quaternion.identity) as GameObject, deathEffect.startLifetime);            
             yield return null;
         }
     }
 
     public override void Death()
-    {
-        
+    {        
         Destroy(gameObject);
     }
 }

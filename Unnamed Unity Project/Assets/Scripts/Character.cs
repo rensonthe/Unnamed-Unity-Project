@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public abstract class Character : MonoBehaviour {
 
+    public int[] damageAmount;
+
     public GameObject Orb;
 
     public float moveSpeed = 3;
@@ -11,8 +13,6 @@ public abstract class Character : MonoBehaviour {
     public Transform rangedPos;
 
     public int health;
-
-    public int currentHealth;
 
     public EdgeCollider2D swordCollider;
 
@@ -38,7 +38,6 @@ public abstract class Character : MonoBehaviour {
 
     public virtual void Start()
     {
-        currentHealth = health;
         facingRight = true;
 
         MyAnimator = GetComponent<Animator>();

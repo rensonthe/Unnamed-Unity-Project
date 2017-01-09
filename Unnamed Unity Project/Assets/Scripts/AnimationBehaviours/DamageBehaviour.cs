@@ -8,6 +8,7 @@ public class DamageBehaviour : StateMachineBehaviour {
     {
         animator.GetComponent<Character>().TakingDamage = true;
         animator.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        PlayerController.Instance.Jump = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

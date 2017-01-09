@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 
@@ -6,6 +7,11 @@ public delegate void DeadEventHandler();
 
 public class PlayerController : Character {
 
+    [SerializeField]
+    private Stat healthStat;
+
+    public float healVal;
+    public ParticleSystem healthEffect;
     public GameObject playerSoul;
     public Transform[] groundPoints;
     public LayerMask whatIsGround;
@@ -14,6 +20,12 @@ public class PlayerController : Character {
     public bool airControl;
     public bool trig = false;
 
+    private Enemy enemy;
+    private float attackTimer;
+    private float attackCooldown = 2f;
+    private bool canThrow = true;
+
+    public bool immortalty;
     private bool immortal = false;
     public float immortalTime;
 
@@ -50,16 +62,16 @@ public class PlayerController : Character {
     {
         get
         {
-            if(health <= 0)
+            if(healthStat.CurrentVal <= 0)
             {
                 OnDead();
             }
             
-            return health <= 0;
+            return healthStat.CurrentVal <= 0;
         }
     }
 
-    private Vector2 startPos;
+    public Vector2 startPos;
 
     // Use this for initialization
     public override void Start()
@@ -68,6 +80,7 @@ public class PlayerController : Character {
         startPos = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
         MyRigidBody = GetComponent<Rigidbody2D>();
+        healthStat.Initialize();
     }
 
     // Update is called once per frame
@@ -76,6 +89,13 @@ public class PlayerController : Character {
         if (!IsDead)
         {
             HandleInput();
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (Orb != null)
+                {
+                    transform.position = FindObjectOfType<PlayerOrb>().transform.position;
+                }
+            }
         }
     }
 
@@ -92,7 +112,10 @@ public class PlayerController : Character {
             Flip(horizontal);
 
             HandleLayers();
+
+            attackTimer += Time.deltaTime;
         }
+
     }
 
     public void OnDead()
@@ -135,7 +158,7 @@ public class PlayerController : Character {
             }
             if (Input.GetMouseButtonDown(1))
             {
-                MyAnimator.SetTrigger("throw");
+                OrbAttack();
             }
         }
     }
@@ -185,15 +208,32 @@ public class PlayerController : Character {
 
     public override void SpawnOrb(int value)
     {
-        if (facingRight)
         {
-            GameObject tmp = (GameObject)Instantiate(Orb, rangedPos.position, Quaternion.identity);
-            tmp.GetComponent<Orb>().Initialize(Vector2.right);
+            if (facingRight)
+            {
+                GameObject tmp = (GameObject)Instantiate(Orb, rangedPos.position, Quaternion.identity);
+                tmp.GetComponent<PlayerOrb>().Initialize(Vector2.right);
+            }
+            else
+            {
+                GameObject tmp = (GameObject)Instantiate(Orb, rangedPos.position, Quaternion.identity);
+                tmp.GetComponent<PlayerOrb>().Initialize(Vector2.left);
+            }
         }
-        else
+    }
+
+    private void OrbAttack()
+    {
+        if (attackTimer >= attackCooldown)
         {
-            GameObject tmp = (GameObject)Instantiate(Orb, rangedPos.position, Quaternion.identity);
-            tmp.GetComponent<Orb>().Initialize(Vector2.left);
+            canThrow = true;
+            attackTimer = 0;
+        }
+
+        if (canThrow)
+        {
+            canThrow = false;
+            MyAnimator.SetTrigger("throw");
         }
     }
 
@@ -219,9 +259,9 @@ public class PlayerController : Character {
 
     public override IEnumerator TakeDamage()
     {
-        if (!immortal)
+        if (!immortal && immortalty)
         {
-            health -= 10;
+            healthStat.CurrentVal -= 10;
 
             if (!IsDead)
             {
@@ -238,10 +278,25 @@ public class PlayerController : Character {
                 MyAnimator.SetTrigger("death");
             }
         }
+        else
+        {
+            healthStat.CurrentVal -= 10;
+
+            if (!IsDead)
+            {
+                MyAnimator.SetTrigger("damage");
+            }
+            else
+            {
+                MyAnimator.SetLayerWeight(1, 0);
+                MyAnimator.SetTrigger("death");
+            }
+        }
     }
 
     public override void Death()
     {
+        StartCoroutine("Checkpoint");
         MyRigidBody.velocity = Vector2.zero;
 
         if (!isCreated)
@@ -250,21 +305,50 @@ public class PlayerController : Character {
             isCreated = true;
         }
 
-        if(alphaLevel >= 0)
+        //if(alphaLevel >= 0)
+        //{
+        //    totalTime += Time.deltaTime;
+
+        //    if (totalTime >= .09)
+        //    {
+        //        alphaLevel -= .025f;
+        //        totalTime = 0;
+        //    }
+
+        //    GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, alphaLevel);
+        //}
+    }
+
+    private IEnumerator NewLevel()
+    {
+        float fadeTime = GameObject.Find("_BG").GetComponent<Fading>().BeginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene("scene_00");
+
+        MyAnimator.SetTrigger("idle");
+        healthStat.CurrentVal = healthStat.MaxVal;
+        transform.position = startPos;
+    }
+
+    private IEnumerator Checkpoint()
+    {
+        yield return new WaitForSeconds(5);
+        transform.position = startPos;
+        MyAnimator.SetTrigger("idle");
+        healthStat.CurrentVal = healthStat.MaxVal;
+        StopCoroutine("Checkpoint");
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "Health")
         {
-            totalTime += Time.deltaTime;
-
-            if (totalTime >= .09)
+            if(healthStat.CurrentVal != healthStat.MaxVal)
             {
-                alphaLevel -= .025f;
-                totalTime = 0;
+                healthStat.CurrentVal += healVal;
+                Destroy(Instantiate(healthEffect.gameObject, transform.position, Quaternion.identity) as GameObject, healthEffect.startLifetime);
+                Destroy(other.gameObject);
             }
-
-            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, alphaLevel);
         }
-
-        //MyAnimator.SetTrigger("idle");
-        //health = currentHealth;
-        //transform.position = startPos;
     }
 }

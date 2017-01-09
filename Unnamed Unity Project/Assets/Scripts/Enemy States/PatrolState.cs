@@ -7,10 +7,11 @@ public class PatrolState : IEnemyState
     private Enemy enemy;
 
     private float patrolTimer;
-    private float patrolDuration = 3f;
+    private float patrolDuration;
 
     public void Enter(Enemy enemy)
     {
+        patrolDuration = UnityEngine.Random.Range(3, 6);
         this.enemy = enemy;
     }
 
@@ -33,9 +34,9 @@ public class PatrolState : IEnemyState
 
     public void OnTriggerEnter(Collider2D other)
     {
-        if(other.tag == "Edge")
+        if (other.tag == "Orb")
         {
-            enemy.ChangeDirection();
+            enemy.Target = PlayerController.Instance.gameObject;
         }
     }
 

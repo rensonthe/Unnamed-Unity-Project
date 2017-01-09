@@ -7,10 +7,11 @@ public class IdleState : IEnemyState
     private Enemy enemy;
 
     private float idleTimer;
-    private float idleDuration = 5f;
+    private float idleDuration;
 
     public void Enter(Enemy enemy)
     {
+        idleDuration = UnityEngine.Random.Range(3,6);
         this.enemy = enemy;
     }
 
@@ -31,7 +32,10 @@ public class IdleState : IEnemyState
 
     public void OnTriggerEnter(Collider2D other)
     {
-        
+        if(other.tag == "Orb")
+        {
+            enemy.Target = PlayerController.Instance.gameObject;
+        }
     }
 
     private void Idle()

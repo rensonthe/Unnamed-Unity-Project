@@ -17,6 +17,5 @@ public class ChangeAlpha : MonoBehaviour {
         }
 
         GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, alphaLevel);
-    }  
-
+    }
 }

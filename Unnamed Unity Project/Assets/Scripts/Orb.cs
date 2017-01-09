@@ -5,6 +5,7 @@ using System.Collections;
 public class Orb : MonoBehaviour {
 
     public float speed;
+    private float orbDuration = 2f;
 
     private Rigidbody2D myRigidBody;
 
@@ -13,6 +14,15 @@ public class Orb : MonoBehaviour {
     // Use this for initialization
     void Start() {
         myRigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        orbDuration -= Time.deltaTime;
+        if (orbDuration <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void FixedUpdate()
@@ -25,8 +35,11 @@ public class Orb : MonoBehaviour {
         this.direction = direction;
     }
 
-    void OnBecameInvisible()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(gameObject);
+        if (other.tag == "Player")
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), other, true);
+        }
     }
 }
