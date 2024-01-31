@@ -2,51 +2,32 @@ Initialize engine version: 5.4.1f1 (649f48bbbf0f)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GT 730 (ID=0xf02)
-    Vendor:   NVIDIA
-    VRAM:     1996 MB
-Default GameObject Tag: Orb already registered
- 
-(Filename:  Line: 88)
-
+    Renderer: AMD Radeon(TM) Graphics (ID=0x164c)
+    Vendor:   ATI
+    VRAM:     1007 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\MoonSharp.Interpreter.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\MoonSharp.Interpreter.dll into Unity Child Domain
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\MoonSharp.RemoteDebugger.dll (this message is harmless)
-Loading C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\MoonSharp.RemoteDebugger.dll into Unity Child Domain
-- Completed reload, in  0.311 seconds
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\PC3\Documents\GitHub\Unnamed-Unity-Project\Unnamed Unity Project\test_01_Data\Managed\System.dll (this message is harmless)
-OnLevelWasLoaded was found on Fading
-This message has been deprecated and will be removed in a later version of Unity.
-Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
- 
-(Filename:  Line: 375)
-
-desktop: 1920x1080 60Hz; virtual: 5760x1080 at -1920,0
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\MoonSharp.Interpreter.dll (this message is harmless)
+Loading C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\MoonSharp.Interpreter.dll into Unity Child Domain
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\MoonSharp.RemoteDebugger.dll (this message is harmless)
+Loading C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\MoonSharp.RemoteDebugger.dll into Unity Child Domain
+- Completed reload, in  0.088 seconds
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\user\Documents\GitHub\Unnamed-Unity-Project\test_01_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.633782 ms
-NullReferenceException: Object reference not set to an instance of an object
-  at PlayerController.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at PlayerController.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Setting up 1 worker threads for Enlighten.
-  Thread -> id: 3404 -> priority: 1 
+UnloadTime: 1.232000 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 3728 -> priority: 1 
+  Thread -> id: 50a4 -> priority: 1 
+  Thread -> id: 37ec -> priority: 1 
+  Thread -> id: 454c -> priority: 1 
